@@ -5,6 +5,7 @@
     "version": "0.1.15"
   },
   "type": "row",
+  "toast": "quiet-alerts-toast",
   "children": [
     {
       "id": "sidebar",

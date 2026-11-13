@@ -104,6 +104,9 @@ Rename item; the name is edited in Customize.
 - `space.next` / `space.prev` still go through every space, and then the sidebar follows the
   space into its group.
 - The Terminals layout's `picker` doesn't draw custom letters or descriptions, only colors.
+- The layout's root sets `"toast": "quiet-alerts-toast"` (the [quiet-alerts](../quiet-alerts/)
+  pack). Without that pack, Herdr logs a warning and shows its own `toast`; install it, or
+  remove the field.
 
 ## Done when
 
