@@ -1,0 +1,21 @@
+README.md
+  s_7ef315952fee22::t_552eaee02382da 1,3-5,7-9,11,13-18
+grouped-spaces/README.md
+  s_7ef315952fee22::t_0775acdd2440cf 1-40
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "57b18c2517c2b8a66b48e2669093afc541b8f7b9",
+  "prompts": {},
+  "sessions": {
+    "s_7ef315952fee22": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "193402bd-9089-4b13-8848-80d6fe4ebd95",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Marek Elmayan <melmayan.dev@gmail.com>"
+    }
+  }
+}
