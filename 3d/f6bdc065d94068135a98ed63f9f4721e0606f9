@@ -1,0 +1,26 @@
+grouped-spaces/mods/grouped-menu/main.js
+  s_9cd39c582b5549::t_620085f1b803c6 138-139
+grouped-spaces/mods/grouped-space-edit/main.js
+  s_9cd39c582b5549::t_d90c28d671a5ed 108-113
+  s_9cd39c582b5549::t_bdcddc738ec777 51-60
+grouped-spaces/mods/grouped-agents/main.js
+  s_9cd39c582b5549::t_ce49b15b2162f7 141
+grouped-spaces/RECIPE.md
+  s_9cd39c582b5549::t_29186404d1b242 61,95-96
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "3df6bdc065d94068135a98ed63f9f4721e0606f9",
+  "prompts": {},
+  "sessions": {
+    "s_9cd39c582b5549": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6d8a4820-d3e5-4343-8e44-3564062b786a",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Marek Elmayan <melmayan.dev@gmail.com>"
+    }
+  }
+}
