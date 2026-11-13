@@ -547,6 +547,57 @@ export default class Spaces extends View {
     if (target) run("space.select", { id: target.id });
   }
 
+  // A horizontal two-finger swipe over the sidebar drags the list sideways, Arc style, and
+  // switches group on release: fingers left shows the group on the right (Personal), fingers
+  // right the one on the left (Work). Toward a group that doesn't exist it doesn't move. Herdr
+  // reports every event as "moved", so a gesture starts after a pause and ends when events stop.
+  swipe(e, cx) {
+    const now = Date.now();
+    const { x, y } = e.delta;
+    if (now - (this.swipeAt ?? 0) > 150) {
+      this.swipeAxis = null;
+      this.swipeRaw = 0;
+      this.swipeSpeed = 0;
+    }
+    const dt = Math.max(1, now - (this.swipeAt ?? now));
+    this.swipeAt = now;
+    if (!this.swipeAxis && Math.abs(x) + Math.abs(y) >= 2) this.swipeAxis = Math.abs(x) > Math.abs(y) ? "x" : "y";
+    if (this.swipeAxis !== "x") return;
+    // px per ms, smoothed over the last few events: a flick switches even when short.
+    this.swipeSpeed = 0.6 * this.swipeSpeed + 0.4 * (x / dt);
+    const at = GROUPS.findIndex((g) => g.id === currentGroup());
+    const room = this.sideWidth ?? 240;
+    // Work is the leftmost group: dragging right there stays at 0 (and Personal the other way).
+    const min = at < GROUPS.length - 1 ? -room : 0;
+    const max = at > 0 ? room : 0;
+    this.swipeRaw = Math.max(min, Math.min(max, this.swipeRaw + x));
+    this.swipeOffset = this.swipeRaw;
+    cx.timer.after(110, (cx) => { if (Date.now() - this.swipeAt >= 100) this.swipeEnd(cx); });
+    cx.notify();
+  }
+
+  swipeEnd(cx) {
+    if (this.swipeAxis !== "x") return;
+    this.swipeAxis = null;
+    const at = GROUPS.findIndex((g) => g.id === currentGroup());
+    const offset = this.swipeOffset ?? 0;
+    const next = offset === 0 ? null : GROUPS[offset < 0 ? at + 1 : at - 1];
+    // Past a third of the sidebar, or a flick (0.5 px/ms) in the direction of the drag.
+    const far = Math.abs(offset) >= (this.sideWidth ?? 240) / 3;
+    const flick = Math.abs(this.swipeSpeed) >= 0.5 && Math.sign(this.swipeSpeed) === Math.sign(offset);
+    this.swipeRaw = 0;
+    if (next && (far || flick)) {
+      // The new group's list starts on the side the fingers came from, then slides in.
+      this.swipeOffset = (offset < 0 ? 1 : -1) * (this.sideWidth ?? 240) * 0.4;
+      this.switchGroup(next.id);
+      cx.notify();
+      cx.timer.after(16, (cx) => { this.swipeOffset = 0; cx.notify(); });
+    } else {
+      this.swipeOffset = 0;
+      cx.notify();
+    }
+  }
+
   render() {
     const t = theme();
     const collapsed = narrow();
@@ -572,7 +623,10 @@ export default class Spaces extends View {
       .child(g.label)
       .when(g.id !== group && calls(g.id), (el) => el.child(div().size(6).rounded(3).bg(t.blocked)));
     const other = GROUPS.find((g) => g.id !== group);
-    return v_flex().size_full().min_h(0).bg(t.chrome).text_size(13)
+    const offset = this.swipeOffset ?? 0;
+    return v_flex().id("grouped-spaces").size_full().min_h(0).bg(t.chrome).text_size(13)
+      .on_size_change((size) => { this.sideWidth = size.width; })
+      .on_scroll_wheel((e, cx) => this.swipe(e, cx))
       .child(h_flex().h(31).pl(10).pr(10).items_center().justify_between().text_size(11.5).text_color(t.dim)
         .when(collapsed, el => el.pl(0).pr(0).justify_center().child(
           div().id("group-rail").size(22).flex().items_center().justify_center().rounded(6).bg(t.selected).text_color(t.foreground).font_bold()
@@ -581,8 +635,14 @@ export default class Spaces extends View {
         .when(!collapsed, el => el.child(h_flex().gap(2).children(GROUPS.map(pill))))
         .child(div().id("space-new").size(26).flex_none().flex().items_center().justify_center().rounded(6).hover(s => s.bg(t.hover).text_color(t.foreground))
           .on_click(() => run("space.new")).child(svg("mods/workspace-chrome/plus.svg").size(14))))
-      .child(v_flex().flex_1().min_h(0).px(collapsed ? 0 : 8).pb(14).overflow_y_scrollbar().mode("always")
-        .on_mouse_up("left", (_e, cx) => { this.pressed = null; cx.notify(); })
-        .children(this.grouped(t, collapsed)));
+      // Keyed by group, so a switch draws a fresh list that slides in from where it was put.
+      .child(div().flex_1().min_h(0).overflow_hidden()
+        .child(v_flex().id(`swipe-${group}`).size_full().relative().left(offset)
+          // Only when settling: while the fingers are down the list follows them with no lag.
+          .when(this.swipeAxis !== "x", (el) => el.transition("left", { duration: 180, easing: "ease-out" }))
+          .opacity(1 - Math.min(0.5, Math.abs(offset) / ((this.sideWidth ?? 240) * 1.4)))
+          .child(v_flex().id("space-list").size_full().px(collapsed ? 0 : 8).pb(14).overflow_y_scrollbar().mode("always")
+            .on_mouse_up("left", (_e, cx) => { this.pressed = null; cx.notify(); })
+            .children(this.grouped(t, collapsed)))));
   }
 }

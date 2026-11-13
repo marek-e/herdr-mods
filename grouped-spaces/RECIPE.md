@@ -49,6 +49,13 @@ Rename item; the name is edited in Customize.
 - **Switching groups** shows that group's spaces and selects the space last used there, or else
   its first space. If the group is empty, the selection stays where it is and the list offers
   "New personal space".
+- **Swipe:** a horizontal two-finger swipe over the Spaces sidebar drags the space list
+  sideways with the fingers, no lag (fading slightly), like Arc's sidebar. Toward a group that
+  doesn't exist (right on Work, left on Personal) it doesn't move. On release the group switches
+  if the list moved a third of the sidebar's width, or on a flick (0.5 px/ms in the drag's
+  direction): fingers left shows Personal, fingers right shows Work, and the new list slides in
+  from that side (180ms ease-out). Otherwise it slides back. A gesture that starts vertical
+  stays a normal scroll.
 - **The group follows the active space:** when another way picks a space in the hidden group
   (the agents list, a toast, `space.next`), the sidebar switches to that group.
 - **Agents list:** only agents whose space is in the shown group. `agent.next` / `agent.prev`
@@ -92,6 +99,11 @@ Rename item; the name is edited in Customize.
 
 ## Watch out
 
+- **Swipe events:** Herdr reports every wheel event with `touch_phase: "moved"`, never
+  `started` or `ended`. A gesture starts after 150ms without events and ends 100ms after the
+  last one (`cx.timer.after`). The list is keyed by group (`swipe-<group>`) so the new list
+  starts at its offset and `.transition("left", ...)` slides it to 0. The transition is left off
+  while the fingers are down: with it, the list trails the fingers by its duration.
 - **Overlay corners:** a mod's root `.bg(t.popover)` is square and pokes out past the frame's
   rounded top-left corner. Give the root of every dialog and popup `.rounded(10)`.
 - `WORK_FOLDERS` at the top of `mods/grouped-spaces/main.js` is empty, so every space that
