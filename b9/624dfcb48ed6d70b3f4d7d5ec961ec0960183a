@@ -1,0 +1,43 @@
+.gitignore
+  s_7ef315952fee22::t_6190505c5f0026 1-5
+install.sh
+  s_7ef315952fee22::t_3406e0008bddd7 1-26
+keys.json
+  s_7ef315952fee22::t_e28a6018bb9b61 1-5
+layouts/grouped-spaces.json
+  s_7ef315952fee22::t_40093536303147 1-187
+mods/grouped-agents/main.js
+  s_7ef315952fee22::t_47dc5de910519e 1-465
+mods/grouped-agents/mod.json
+  s_7ef315952fee22::t_19dc8fa1597e16 1-8
+mods/grouped-menu/main.js
+  s_7ef315952fee22::t_42acf21def335c 1-169
+mods/grouped-menu/mod.json
+  s_7ef315952fee22::t_581e280b0e860e 1-7
+mods/grouped-space-edit/main.js
+  s_7ef315952fee22::t_040a0b2ff45d49 1-123
+mods/grouped-space-edit/mod.json
+  s_7ef315952fee22::t_c021536ac1ad45 1
+mods/grouped-spaces/main.js
+  s_7ef315952fee22::t_2bd29dde66d008 1-588
+mods/grouped-spaces/mod.json
+  s_7ef315952fee22::t_8c32fbf07048b9 1-8
+mods/grouped-spaces/note.svg
+  s_7ef315952fee22::t_6f0647077dc6b1 1-5
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "b9624dfcb48ed6d70b3f4d7d5ec961ec0960183a",
+  "prompts": {},
+  "sessions": {
+    "s_7ef315952fee22": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "193402bd-9089-4b13-8848-80d6fe4ebd95",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Marek Elmayan <melmayan.dev@gmail.com>"
+    }
+  }
+}
