@@ -1,0 +1,39 @@
+grouped-spaces/RECIPE.md
+  s_fa765600953f6a::t_42a139e79d5bb0 107-109
+grouped-spaces/layouts/grouped-spaces.json
+  s_fa765600953f6a::t_c0a0217a83a940 8
+quiet-alerts/RECIPE.md
+  s_fa765600953f6a::t_1f1d5aa20174d8 1-53
+quiet-alerts/install.sh
+  s_fa765600953f6a::t_230acb80cd2380 1-28
+quiet-alerts/mods/quiet-alerts-toast/main.js
+  s_fa765600953f6a::t_e48b934e0631df 1-4,12-14,20-23,55
+  s_fa765600953f6a::t_5dd2e15af16ca1 16-19
+  s_fa765600953f6a::t_2783a78c7417cc 8
+  s_fa765600953f6a::t_1296ee7e5f2a34 5-7
+  s_fa765600953f6a::t_9a1d6b7baee2b3 9-11
+  s_fa765600953f6a::t_85fc9d3940bedb 15
+  s_fa765600953f6a::t_6975010c6c5523 24-26,52-54
+  s_fa765600953f6a::t_8f03958219a0ab 56
+  s_fa765600953f6a::t_3837ea0bf554b6 27-51
+README.md
+  s_fa765600953f6a::t_154b8d6f7fb402 10
+quiet-alerts/mods/quiet-alerts-toast/mod.json
+  s_fa765600953f6a::t_55a09f26947381 1-7
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "e8ce6ac04d4f86b3bffd55b1f08c525079da416e",
+  "prompts": {},
+  "sessions": {
+    "s_fa765600953f6a": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "d15507b9-6789-4367-8849-34227978067b",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Marek Elmayan <melmayan.dev@gmail.com>"
+    }
+  }
+}
