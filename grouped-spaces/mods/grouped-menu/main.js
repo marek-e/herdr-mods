@@ -135,6 +135,8 @@ export default class Menu extends View {
       .min_h(0)
       .p(5)
       .bg(t.popover)
+      // Rounded like Herdr's frame: a square background pokes out past its corner.
+      .rounded(10)
       .text_size(12.8)
       .on_key_down((e, cx) => {
         if (e.key === "down") this.at = (this.at + 1) % list.length;

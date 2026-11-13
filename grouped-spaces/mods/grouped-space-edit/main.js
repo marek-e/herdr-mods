@@ -48,6 +48,16 @@ export default class SpaceEdit extends View {
     this.handle = cx.focus_handle();
   }
 
+  // Tab / Shift-Tab: move between the text fields, wrapping around.
+  focusStep(dir) {
+    const order = ["name", "desc", "letter", "hex"];
+    const inputs = { name: this.nameInput, desc: this.descInput, letter: this.letterInput, hex: this.hexInput };
+    const at = Math.max(0, order.indexOf(this.focusedField));
+    const next = order[(at + dir + order.length) % order.length];
+    this.focusedField = next;
+    inputs[next].focus();
+  }
+
   // The color to save: a typed hex when it's valid, else the picked swatch.
   pickedColor() {
     return HEX.test(this.hex.trim()) ? this.hex.trim() : this.color;
@@ -95,8 +105,12 @@ export default class SpaceEdit extends View {
       .child(g.label);
 
     return v_flex().id("space-edit").track_focus(this.handle)
-      .on_key_down((e, cx) => { if (e.key === "escape") { closeOverlay(p.overlay); cx.stop_propagation(); } })
-      .w_full().min_h(0).p(18).bg(t.popover).text_color(t.foreground)
+      .on_key_down((e, cx) => {
+        if (e.key === "escape") { closeOverlay(p.overlay); cx.stop_propagation(); }
+        else if (e.key === "tab") { this.focusStep(e.modifiers?.shift ? -1 : 1); cx.stop_propagation(); cx.notify(); }
+      })
+      // Rounded like Herdr's frame: a square background pokes out past its corner.
+      .w_full().min_h(0).p(18).bg(t.popover).rounded(10).text_color(t.foreground)
       // Preview: the row as the sidebar will draw it.
       .child(h_flex().gap(10).items_center()
         .child(h_flex().size(30).flex_none().rounded(8).bg(fill).items_center().justify_center()

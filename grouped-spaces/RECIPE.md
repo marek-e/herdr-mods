@@ -58,7 +58,7 @@ Rename item; the name is edited in Customize.
 - **Rows:** a click selects the space and a drag reorders it (an accent line shows where it
   will land). A double-click or `cmd-shift-r` (active space) opens Customize, and a right-click
   opens the menu.
-- **Customize:** Enter saves and Esc cancels. Saving with an empty name gives the space back
+- **Customize:** Enter saves and Esc cancels. Tab and Shift-Tab move through Name, Description, Letter and Custom color, wrapping around. Saving with an empty name gives the space back
   Herdr's automatic name; an unchanged name isn't renamed. A valid `#rrggbb` beats the swatch.
 - **Narrow sidebar** (under 160px, the rail): one letter button (`W`/`P`) switches groups. The
   rows are numbered as in Herdr.
@@ -92,6 +92,8 @@ Rename item; the name is edited in Customize.
 
 ## Watch out
 
+- **Overlay corners:** a mod's root `.bg(t.popover)` is square and pokes out past the frame's
+  rounded top-left corner. Give the root of every dialog and popup `.rounded(10)`.
 - `WORK_FOLDERS` at the top of `mods/grouped-spaces/main.js` is empty, so every space that
   existed before the first run starts in Work. Add path fragments (e.g. `"/code/acme/"`) to sort
   them by folder instead. It only decides the first assignment; after that, `space.groups` wins.
