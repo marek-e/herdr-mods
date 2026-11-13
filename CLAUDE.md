@@ -49,6 +49,9 @@ the shipped mod closest to the task in `~/.config/herdr-app/mods/` (`spaces`, `a
   `nextCommand()`; `herdr-app do overlay.close` closes the dialog it opened.
 - **Links resolve on load:** Herdr watches a linked mod's real path. After moving or renaming a
   pack folder, relink, then `layout.switch` away and back to reload from the new path.
+- **Missed reloads:** a save sometimes doesn't reload a linked mod, with `check` passing and
+  `status` clean (seen on `grouped-spaces`). If a change doesn't show, `layout.switch` away and
+  back before debugging the code.
 - **Generated builders:** style methods like `border_2`, `font_medium`, `max_w` and `flex_shrink`
   are generated, so grepping `gpui-kit.d.ts` misses them. Grep the shipped mods for usage.
 - **Shared state** lives in `~/.config/herdr-app/shared.json`, written by Herdr. Read it to
