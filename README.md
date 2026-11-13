@@ -6,7 +6,7 @@ home (`layouts/`, `mods/`, `keys.json`), with a `RECIPE.md` brief, a `preview.pn
 
 | Pack | What it does |
 |---|---|
-| [grouped-spaces](grouped-spaces/) | Work / Personal space groups, descriptions, and custom avatar letters and colors |
+| [grouped-spaces](grouped-spaces/) | Work / Personal space groups you switch with a click or a sideways swipe, space descriptions, and custom avatar letters and colors |
 | [quiet-alerts](quiet-alerts/) | No sound or note when an agent finishes; agents that need you still alert |
 
 ## Adding a pack

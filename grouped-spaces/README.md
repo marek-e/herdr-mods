@@ -7,10 +7,13 @@ choose its avatar letter and color.
 
 - **Work | Personal switch:** shows one group at a time, and the agents list follows it. A dot
   on the hidden group tells you when an agent there needs you.
+- **Swipe between groups:** a two-finger sideways swipe over the sidebar drags the list with
+  your fingers and switches group on release, like Arc's sidebar.
 - **Two-line cards:** avatar, name and description, plus the branch and ahead/behind counts. The
   avatar's corner shows the space's agent status.
 - **Customize:** name, description, letter, color and group, in one dialog. Open it by
-  double-clicking a space, from the right-click menu, or with `cmd-shift-r`.
+  double-clicking a space, from the right-click menu, or with `cmd-shift-r`. Tab moves between
+  the fields.
 
 ## Install
 
