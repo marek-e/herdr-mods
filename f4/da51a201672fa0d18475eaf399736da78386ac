@@ -1,0 +1,19 @@
+CLAUDE.md
+  s_9cd39c582b5549::t_bbe7b0ae48ac5c 52-54
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "f4da51a201672fa0d18475eaf399736da78386ac",
+  "prompts": {},
+  "sessions": {
+    "s_9cd39c582b5549": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6d8a4820-d3e5-4343-8e44-3564062b786a",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Marek Elmayan <melmayan.dev@gmail.com>"
+    }
+  }
+}
