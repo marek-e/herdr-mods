@@ -516,10 +516,10 @@ export default class Spaces extends View {
   // (picked from the agents list, a key, a toast). Returns the shown group.
   syncGroups(sp) {
     const ps = panes();
-    const ids = new Set(sp.map((s) => s.id));
-    const stored = shared("space.groups") ?? {};
-    const groups = Object.fromEntries(Object.entries(stored).filter(([id]) => ids.has(id)));
-    let changed = Object.keys(groups).length !== Object.keys(stored).length;
+    // Never drop a stored group: at start Herdr can list no spaces (or some) before it
+    // restores them, and pruning then would send every space to the shown group.
+    const groups = { ...(shared("space.groups") ?? {}) };
+    let changed = false;
     for (const s of sp) {
       if (groups[s.id]) continue;
       groups[s.id] = this.initial.has(s.id) ? (!WORK_FOLDERS.length || WORK_FOLDERS.some((f) => (place(s, ps) ?? "").includes(f)) ? "work" : "personal") : currentGroup();
@@ -603,9 +603,9 @@ export default class Spaces extends View {
     const collapsed = narrow();
     const palette = ["ansi6", "ansi3", "ansi4", "ansi5", "ansi2", "ansi1"];
     const sp = spaces();
-    const ids = new Set(sp.map(p => p.id));
-    const kept = Object.fromEntries(Object.entries(shared("space.colors") ?? {}).filter(([id]) => ids.has(id)));
-    let changed = Object.keys(kept).length !== Object.keys(shared("space.colors") ?? {}).length;
+    // Kept for closed spaces too, for the same reason as groups (see syncGroups).
+    const kept = { ...(shared("space.colors") ?? {}) };
+    let changed = false;
     for (const p of sp) {
       if (kept[p.id] || p.name === "~") continue;
       const uses = c => Object.values(kept).filter(v => v === c).length;
